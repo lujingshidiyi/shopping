@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+   <!-- 配置映射类的别名 -->
+ 	<typeAliases>
+      <typeAlias alias="MerInfo" type="com.mucfc.model.MerInfo"/> 
+      <typeAlias alias="UserInfo" type="com.mucfc.model.UserInfo"/>
+      <typeAlias alias="Car" type="com.mucfc.model.Car"/>
+      <typeAlias alias="Orders" type="com.mucfc.model.Orders"/>
+      <typeAlias alias="Bank" type="com.mucfc.model.Bank"/>
+   </typeAliases>  
+   <!-- 配置Mapper文件的路径 -->
+   <mappers>
+       <mapper resource="mapper/MerInfoMapper.xml"/>
+       <mapper resource="mapper/UserInfoMapper.xml"/>
+       <mapper resource="mapper/CarMapper.xml"/>
+       <mapper resource="mapper/OrdersMapper.xml"/>
+       <mapper resource="mapper/BankMapper.xml"/>
+   </mappers>
+</configuration>

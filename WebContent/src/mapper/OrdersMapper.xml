@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mucfc.mapper.OrdersMapper">	
+	<!--  插入数据  -->  
+    <insert id="add" parameterType="com.mucfc.model.Orders">  
+       insert into orders 
+	   (rcvname, rcvaddress , rcvphone, rcvemail ,totalprice,
+	   payname,payphone,sellerid,payaddress,remark,payemail,
+	   ordercode,merid,carid,userid,mernum)
+	   values(#{entity.rcvname},#{entity.rcvaddress} , #{entity.rcvphone} ,
+	   		#{entity.rcvemail},#{entity.totalprice},#{entity.payname},
+	   		#{entity.payphone},#{entity.sellerid},#{entity.payaddress},
+	   		#{entity.remark},#{entity.rcvphone},#{entity.ordercode},
+	   		#{entity.merid},#{entity.carid},#{entity.userid},#{entity.mernum});
+    </insert> 
+    
+    <!-- 查询数据 -->  
+    <select id="selectBySellerid" resultType="com.mucfc.model.Orders" parameterType="int">  
+       select 
+       		orders.*,
+       		merinfo.pic as pic,
+       		merinfo.mername as mername
+       from
+       		orders 
+       left join
+       		merinfo
+       on
+       		orders.merid=merinfo.mid
+    </select> 
+    
+    <!-- 查询已付款订单数据 -->  
+    <select id="selectyes" resultType="com.mucfc.model.Orders">  
+       select 
+       		orders.*,
+       		merinfo.pic as pic,
+       		merinfo.mername as mername
+       from
+       		orders 
+       left join
+       		merinfo
+       on
+       		orders.merid=merinfo.mid
+       where orders.payflag=1
+    </select> 
+    <!-- 查询未付款订单数据 -->  
+    <select id="selectno" resultType="com.mucfc.model.Orders">  
+       select 
+       		orders.*,
+       		merinfo.pic as pic,
+       		merinfo.mername as mername
+       from
+       		orders 
+       left join
+       		merinfo
+       on
+       		orders.merid=merinfo.mid
+       where orders.payflag IS null
+    </select> 
+    
+    
+    
+    <!-- 查询数据 -->  
+    <select id="selectByUserid" resultType="com.mucfc.model.Orders" parameterType="int">  
+       select 
+       		orders.*,
+       		merinfo.pic as pic,
+       		merinfo.mername as mername,
+       		merinfo.merprice as merprice,
+       		seller.sellername as sellername
+       from
+       		orders 
+       left join
+       		merinfo
+       on
+       		orders.merid=merinfo.mid
+       	left join
+       		seller
+       	on
+       		seller.sellerid=orders.sellerid
+       where
+       		orders.userid=#{userid}
+    </select> 
+    
+    <!-- 更具订单号查询数据 -->  
+    <select id="selectByOrdercode" resultType="com.mucfc.model.Orders" parameterType="string">  
+       select 
+       		orders.*
+       from
+       		orders 
+       where
+       		orders.ordercode=#{ordercode}
+    </select>  
+    
+    <!-- 更新订单号的支付状态-->  
+    <update id="upadatePayFlag"  parameterType="int">  
+       update
+       		orders
+       	set
+       		payflag=1
+       where
+       		orders.orderid=#{orderid}
+    </update> 
+    
+    <!-- 更具id查询数据 -->  
+    <select id="selectByKey" resultType="com.mucfc.model.Orders" parameterType="int">  
+       select 
+       		orders.*
+       from
+       		orders 
+       where
+       		orders.orderid=#{orderid}
+    </select>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mucfc.mapper.UserInfoMapper">	
+	<!--  查询单条记录  -->  
+    <select id="loginCheck" resultType="com.mucfc.model.UserInfo" parameterType="com.mucfc.model.UserInfo">  
+       select * from userinfo where uname=#{entity.uname} and password=#{entity.password}
+    </select> 
+    <!--  增加用户记录  -->  
+    <insert id="add" parameterType="com.mucfc.model.UserInfo" useGeneratedKeys="true" keyProperty="id">  
+        insert into 
+       		userinfo
+        (uname , password, email ,role)
+	   values(#{uname},#{password} , #{email} ,
+	   3);
+    </insert> 
+    <select id="select" resultType="Integer" parameterType="String">  
+       select id from userinfo where uname=#{entity.uname}
+    </select> 
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mucfc.mapper.BankMapper">	
+    <!-- 查询购物者拥有的银行卡号-->  
+    <select id="selectByUserid" resultType="com.mucfc.model.Bank" parameterType="int">  
+       select 
+       		bank.*
+       from
+       		bank
+       where
+       		bank.userid=#{userid}
+    </select> 
+    <!-- 更改购物者的银行账号的金额-->  
+    <update id="updateUserMoney"  parameterType="com.mucfc.model.Bank">  
+       update 
+       		bank
+       set
+       		bank.money=bank.money+#{entity.money}
+       where
+       		bank.userid=#{entity.userid}
+    </update> 
+    <!-- 更改商家的银行账号的金额-->  
+    <update id="updateSellerMoney" parameterType="com.mucfc.model.Bank">  
+       update 
+       		bank
+       set
+       		bank.money=bank.money+#{entity.money}
+       where
+       		bank.sellerid=1
+    </update> 
+    
+    <!--增加账户-->  
+    <insert id="add" parameterType="com.mucfc.model.Bank">  
+       insert into 
+       		bank
+        (bankid, bankcode , bankname, money ,operatetime,sellerid,userid,password)
+	   values(#{entity.bankid},#{entity.bankcode} , #{entity.bankname} ,
+	   #{entity.money},#{entity.operatetime},#{entity.sellerid},#{entity.userid},#{entity.password});
+    </insert> 
+    
+    <!-- 通过id查询银行卡号信息-->  
+    <select id="selectByKey" resultType="com.mucfc.model.Bank" parameterType="int">  
+       select 
+       		bank.*
+       from
+       		bank
+       where
+       		bank.bankid=#{bankid}
+    </select> 
+</mapper>
